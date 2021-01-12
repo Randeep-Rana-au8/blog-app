@@ -6,9 +6,14 @@ const bodyParser = require("body-parser");
 const posts = require("./routes/posts");
 const { register, User } = require("./routes/users");
 const login = require("./routes/login");
+const session = require("express-session");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(
+  session({ secret: "mysecretId", resave: true, saveUninitialized: true })
+);
+
 app.use("/posts", posts);
 app.use("/register", register);
 app.use("/login", login);
@@ -18,7 +23,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then((res) => console.log("Connected to server"))
+  .then((res) => console.log("Connected to server..."))
   .catch((err) => console.log(err));
 
 app.get("/health", (req, res) => {

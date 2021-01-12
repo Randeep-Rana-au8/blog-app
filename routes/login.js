@@ -13,8 +13,8 @@ app.post("/", async (req, res) => {
   if (!user) return res.status(400).send("Invalid email or password");
   const validPass = user.password == req.body.password;
   if (!validPass) return res.status(400).send("Invalid email or password");
-
-  res.send("Login Successfull");
+  req.session.user = user;
+  res.send(req.session.user);
 });
 
 module.exports = app;

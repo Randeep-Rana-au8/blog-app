@@ -12,19 +12,26 @@ const Post = mongoose.model(
 );
 
 app.get("/", async (req, res) => {
-  const posts = await Post.find();
+  if (!req.session.user) {
+    return res.send("login first");
+  }
+  const posts = await Post.find({});
   res.send(posts);
 });
 
 app.post("/", async (req, res) => {
-  const post = new Post({
-    title: req.body.title,
-    description: req.body.description,
-    createdBy: req.session.user,
-  });
+  try {
+    const post = new Post({
+      title: req.body.title,
+      description: req.body.description,
+      createdBy: req.body.user,
+    });
 
-  await post.save();
-  res.send(post);
+    await post.save();
+    res.send(post);
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
 module.exports = app;

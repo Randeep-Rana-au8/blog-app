@@ -24,7 +24,7 @@ export const RegisterForm = withRouter((props) => {
       console.log(props);
       props.history.push("/login");
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
   };
   return (
@@ -81,7 +81,7 @@ export const RegisterForm = withRouter((props) => {
   );
 });
 
-export const LoginForm = () => {
+export const LoginForm = withRouter((props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = async (e) => {
@@ -92,6 +92,7 @@ export const LoginForm = () => {
         password: password,
       });
       console.log(res);
+      // props.history.push("/posts");
     } catch (err) {
       console.log(err.message);
     }
@@ -101,23 +102,23 @@ export const LoginForm = () => {
       <Col md={5}>
         <Form>
           <FormGroup>
-            <Form.Label for="email">Email</Form.Label>
+            <Form.Label htmlFor="email">Email</Form.Label>
             <Form.Control
               id="email"
               type="text"
               value={email}
-              onChange={(e) => setEmail(e.value)}
+              onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="example@gmail.com"
             />
           </FormGroup>
           <FormGroup>
-            <Form.Label for="pass">Password</Form.Label>
+            <Form.Label htmlFor="pass">Password</Form.Label>
             <Form.Control
               id="pass"
               type="text"
               required
-              onChange={(e) => setPassword(e.value)}
+              onChange={(e) => setPassword(e.target.value)}
               value={password}
               placeholder="Enter your password"
             />
@@ -138,6 +139,6 @@ export const LoginForm = () => {
       </Col>
     </Container>
   );
-};
+});
 
 // export const RegisterForm = withRouter(Register);

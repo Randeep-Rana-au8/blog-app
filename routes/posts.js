@@ -12,9 +12,10 @@ const Post = mongoose.model(
 );
 
 app.get("/", async (req, res) => {
-  if (!req.session.user) {
-    return res.send("login first");
-  }
+  console.log("check user req.session", req.session);
+  // if (!req.session.user) {
+  //   return res.send("login first");
+  // }
   const posts = await Post.find({});
   res.send(posts);
 });

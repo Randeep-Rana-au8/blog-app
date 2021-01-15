@@ -15,6 +15,7 @@ app.post("/", async (req, res) => {
   if (!validPass) return res.status(400).send("Invalid email or password");
   req.session.user = user;
   console.log(user);
+  console.log("req.session in after login in login.js", req.session.user);
   res.send(req.session.user);
 });
 

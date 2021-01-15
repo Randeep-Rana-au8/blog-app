@@ -17,7 +17,15 @@ const Posts = () => {
   return (
     <div>
       <h1>Hello world</h1>
-      {typeof posts === Array ? <h1>{posts.map.title}</h1> : <h1>{posts}</h1>}
+      {typeof posts === "object" ? (
+        <div>
+          {posts.map((post) => (
+            <h1 key={post._id}>{post.title}</h1>
+          ))}
+        </div>
+      ) : (
+        <h1>not found</h1>
+      )}
     </div>
   );
 };

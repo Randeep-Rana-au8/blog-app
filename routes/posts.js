@@ -21,10 +21,13 @@ app.get("/", async (req, res) => {
 
 app.post("/", async (req, res) => {
   try {
+    if (!req.session.user) {
+      return res.status(400).send("login first");
+    }
     const post = new Post({
       title: req.body.title,
       description: req.body.description,
-      createdBy: req.body.user,
+      createdBy: req.session.user.name,
     });
 
     await post.save();

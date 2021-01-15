@@ -23,6 +23,12 @@ const User = mongoose.model(
 );
 
 app.post("/", async (req, res) => {
+  console.log("body", req.body);
+  const checkUser = await User.findById("5ffd777e0e0b319a38fa4667");
+  console.log("checkUser", checkUser);
+  if (checkUser) {
+    return res.status(400).send("User already Exists");
+  }
   const user = new User({
     email: req.body.email,
     password: req.body.password,

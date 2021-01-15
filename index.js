@@ -7,9 +7,11 @@ const posts = require("./routes/posts");
 const { register, User } = require("./routes/users");
 const login = require("./routes/login");
 const session = require("express-session");
+const cors = require("cors");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 app.use(
   session({ secret: "mysecretId", resave: true, saveUninitialized: true })
 );
@@ -28,6 +30,22 @@ mongoose
 
 app.get("/health", (req, res) => {
   res.send("Health is ok");
+});
+
+app.get("/logout", (req, res) => {
+  let data = req.session.user;
+  if (req.session.user) {
+    req.session.user = null;
+    res.send(
+      `Logout successful Mr. ${data.name}  Please Login to Use services`
+    );
+    return;
+  }
+  res.send("please login first");
+});
+
+app.get("/session", (req, res) => {
+  res.send(req.session.user);
 });
 
 app.listen(port, (err) => {

@@ -14,6 +14,7 @@ app.post("/", async (req, res) => {
   const validPass = user.password == req.body.password;
   if (!validPass) return res.status(400).send("Invalid email or password");
   req.session.user = user;
+  console.log(user);
   res.send(req.session.user);
 });
 

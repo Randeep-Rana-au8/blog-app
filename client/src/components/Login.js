@@ -92,7 +92,7 @@ export const LoginForm = withRouter((props) => {
         password: password,
       });
       console.log(res);
-      // props.history.push("/posts");
+      props.history.push("/posts");
     } catch (err) {
       console.log(err.message);
     }
